@@ -1,9 +1,27 @@
-#include <QDebug>
+﻿#include <QDebug>
 #include <QFile>
+#include <QTextCodec>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "libxls/xls.h"
+
+static char  stringSeparator = '\"';
+static void OutputString(const char *string) {
+    const char *str;
+
+    printf("%c", stringSeparator);
+    for (str = string; *str; str++) {
+        if (*str == stringSeparator) {
+            printf("%c%c", stringSeparator, stringSeparator);
+        } else if (*str == '\\') {
+            printf("\\\\");
+        } else {
+            printf("%c", *str);
+        }
+    }
+    printf("%c", stringSeparator);
+}
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     // modify the xls_open path to your own.
-    xls::xlsWorkBook *pWB = xls::xls_open("/Users/John/Work/libxls4qt/test.xls", "UTF-8");
+    xls::xlsWorkBook *pWB = xls::xls_open("C:\\libxls4qt\\trunk\\dataworker.xls", "UTF-8");
     if (pWB == NULL) {
         qDebug() << "File not found, modify the xls_open path to your own.";
         return;
@@ -49,11 +67,19 @@ MainWindow::MainWindow(QWidget *parent) :
                         qDebug() << "formula *error*";
                     } else // ... cell->str is valid as the result of a string formula.
                     {
+                        // qDebug() << "Formula String : " << QTextCodec::codecForMib(1015)->toUnicode((char *)cell->str);
                         qDebug() << "String : " << (char *)cell->str;
                     }
                 }
             } else if (cell->str != NULL) {
-                qDebug() << "String : " << (char *)cell->str;
+                // qDebug() << "String : " << (char *)cell->str;
+                // qDebug() << "String : " << QString::fromUtf16((const ushort *)cell->str).toUtf8();
+                // QTextCodec *codec = QTextCodec::codecForName("UTF-8");
+                // qDebug() << "String : " << QString::fromUtf16(reinterpret_cast<const ushort*>(cell->str));
+                // qDebug() << "wcslen((wchar_t *)cell->str) = " << QString::number(wcslen((wchar_t *)cell->str));
+                // qDebug() << "strlen((char *)cell->str) = " << QString::number(strlen((char *)cell->str));
+                qDebug() << "Normal String : " << (char *)cell->str;
+                // qDebug() << "UTF-16 : " << QString::fromUtf16((ushort *)cell->str, wcslen((wchar_t *)cell->str));
             } else {
                 qDebug() << "";
             }

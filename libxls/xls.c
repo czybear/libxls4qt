@@ -1,4 +1,4 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+﻿/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
  * This file is part of libxls -- A multiplatform, C/C++ library
  * for parsing Excel(TM) files.
@@ -43,6 +43,7 @@
 #include <assert.h>
 
 #include "libxls/xls.h"
+#include "libxls/cppproxy.h"
 
 #define min(a,b) ((a) < (b) ? (a) : (b))
 
@@ -202,7 +203,7 @@ void xls_appendSST(xlsWorkBook* pWB,BYTE* buf,DWORD size)
                 size_t new_len;
                 ln_toread = min((size-ofs)/2, ln);
                 new_len = 0;
-                ret=unicode_decode(buf+ofs,ln_toread*2,&new_len,pWB->charset);
+                ret=unicode_decode(buf+ofs,ln_toread,&new_len,pWB->charset);
 
                 if (ret == NULL)
                 {
