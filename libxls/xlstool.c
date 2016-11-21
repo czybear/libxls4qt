@@ -52,10 +52,11 @@
 #include "libxls/xlsstruct.h"
 #include "libxls/xlstool.h"
 #include "libxls/brdb.h"
+#include "libxls/cppproxy.h"
 
 extern int xls_debug;
 
-static void xls_showBOUNDSHEET(void* bsheet);
+// static void xls_showBOUNDSHEET(void* bsheet);
 
 static const DWORD colors[] =
     {
@@ -473,7 +474,7 @@ BYTE *xls_getfcell(xlsWorkBook* pWB,struct st_cell_data* cell,WORD *label)
 			ret = (char *)utf8_decode((BYTE *)label + 1, len, pWB->charset);
 		} else {
 			size_t newlen;			
-			ret = (char *)unicode_decode((BYTE *)label + 1, len*2, &newlen, pWB->charset);
+            ret = (char *)unicode_decode((BYTE *)label + 1, len*2, &newlen, pWB->charset);
 		}
         break;
     case 0x027E:		//RK

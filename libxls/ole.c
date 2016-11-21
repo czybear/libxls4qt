@@ -1,4 +1,4 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+﻿/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
  * This file is part of libxls -- A multiplatform, C/C++ library
  * for parsing Excel(TM) files.
@@ -41,6 +41,7 @@
 
 #include "libxls/ole.h"
 #include "libxls/xlstool.h"
+#include "libxls/cppproxy.h"
 
 extern int xls_debug;
 

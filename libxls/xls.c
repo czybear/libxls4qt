@@ -203,7 +203,7 @@ void xls_appendSST(xlsWorkBook* pWB,BYTE* buf,DWORD size)
                 size_t new_len;
                 ln_toread = min((size-ofs)/2, ln);
                 new_len = 0;
-                ret=unicode_decode(buf+ofs,ln_toread,&new_len,pWB->charset);
+                ret=unicode_decode(buf+ofs,ln_toread*2,&new_len,pWB->charset);
 
                 if (ret == NULL)
                 {

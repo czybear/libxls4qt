@@ -19,10 +19,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
+    libxls/cppproxy.cpp \
     libxls/ole.c \
     libxls/xls.c \
-    libxls/xlstool.c \
-    libxls/cppproxy.cpp
+    libxls/xlstool.c
 
 HEADERS  += mainwindow.h \
     libxls/brdb.c.h \

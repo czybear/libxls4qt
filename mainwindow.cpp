@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     // modify the xls_open path to your own.
-    xls::xlsWorkBook *pWB = xls::xls_open("C:\\libxls4qt\\trunk\\dataworker.xls", "UTF-8");
+    xls::xlsWorkBook *pWB = xls::xls_open("C:\\Work\\libxls4qt\\trunk\\test.xls", "UTF-8");
     if (pWB == NULL) {
         qDebug() << "File not found, modify the xls_open path to your own.";
         return;

@@ -1,4 +1,4 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+﻿/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
  * This file is part of libxls -- A multiplatform, C/C++ library
  * for parsing Excel(TM) files.
@@ -29,11 +29,13 @@
  *
  */
 
+#include "libxls/xlstypes.h"
+
 struct str_brdb
 {
     WORD opcode;
-    char * name;			/* printable name */
-    char * desc;			/* printable description */
+    const char * name;			/* printable name */
+    const char * desc;			/* printable description */
 };
 typedef struct str_brdb record_brdb;
 

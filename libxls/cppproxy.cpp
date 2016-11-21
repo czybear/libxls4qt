@@ -5,27 +5,24 @@
 #include <sys/types.h>
 #include <wchar.h>
 #include <stdio.h>
-#include <malloc.h>
-
-#ifdef HAVE_ICONV
-#include <iconv.h>
-#else
-#include <locale.h>
-#include <Windows.h>
-#endif
 
 #include <stdlib.h>
 #include <errno.h>
 #include <memory.h>
 #include <string.h>
 
-//#include "xls.h"
-#include "libxls/brdb.h"
-#include "libxls/cppproxy.h"
-
 #include <QDebug>
 
+#ifdef HAVE_ICONV
+#include <iconv.h>
+#include "libxls/xlstypes.h"
+#else
+#include <locale.h>
+#include <Windows.h>
+#include <malloc.h>
+#endif
 
+#include "libxls/cppproxy.h"
 
 // Convert unicode string to to_enc encoding
 BYTE* unicode_decode(const BYTE *s, int len, size_t *newlen, const char* to_enc)
@@ -92,6 +89,8 @@ BYTE* unicode_decode(const BYTE *s, int len, size_t *newlen, const char* to_enc)
     }
     return outbuf;
 #else
+    Q_UNUSED(to_enc);
+    len = len / 2;
     // Do wcstombs conversion
     wchar_t *orig = NULL;
     char *converted = NULL;
@@ -109,7 +108,7 @@ BYTE* unicode_decode(const BYTE *s, int len, size_t *newlen, const char* to_enc)
     // count = wcstombs(NULL, (wchar_t*)orig, 0);
     count = WideCharToMultiByte( CP_UTF8, 0, orig, -1, NULL, NULL, NULL, NULL );
 
-    qDebug() << QString::fromUtf16((ushort *)s) << ", len : " << QString::number(len) << ", count : " << QString::number(count);
+    // qDebug() << QString::fromUtf16((ushort *)s) << ", len : " << QString::number(len) << ", count : " << QString::number(count);
     if (count <= 0) {
         if (newlen) *newlen = 0;
         return NULL;
