@@ -62,7 +62,8 @@ extern BYTE *xls_addFont(xlsWorkBook* pWB,FONT* font);
 extern void xls_addXF8(xlsWorkBook* pWB,XF8* xf);
 extern void xls_addXF5(xlsWorkBook* pWB,XF5* xf);
 extern void xls_addColinfo(xlsWorkSheet* pWS,COLINFO* colinfo);
-extern void xls_mergedCells(xlsWorkSheet* pWS,BOF* bof,BYTE* buf);
+// extern void xls_mergedCells(xlsWorkSheet* pWS,BOF* bof,BYTE* buf);
+extern void xls_mergedCells(xlsWorkSheet* pWS,BYTE* buf);
 extern void xls_parseWorkBook(xlsWorkBook* pWB);
 extern void xls_preparseWorkSheet(xlsWorkSheet* pWS);
 extern void xls_formatColumn(xlsWorkSheet* pWS);
@@ -674,7 +675,7 @@ void xls_addColinfo(xlsWorkSheet* pWS,COLINFO* colinfo)
     pWS->colinfo.count++;
 }
 
-void xls_mergedCells(xlsWorkSheet* pWS,BOF* bof,BYTE* buf)
+void xls_mergedCells(xlsWorkSheet* pWS,BYTE* buf)
 {
     int count=*((WORD_UA *)buf);
     int i,c,r;
@@ -1057,7 +1058,8 @@ void xls_parseWorkSheet(xlsWorkSheet* pWS)
         case 0x000A:		//EOF
             break;
         case 0x00E5:		//MERGEDCELLS
-            xls_mergedCells(pWS,&tmp,buf);
+            // xls_mergedCells(pWS,&tmp,buf);
+            xls_mergedCells(pWS,buf);
             break;
         case 0x0208:		//ROW
 			if(xls_debug > 10) printf("ROW: %x at pos=%ld\n", tmp.id, lastPos);

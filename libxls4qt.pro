@@ -11,11 +11,12 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = libxls4qt
 TEMPLATE = app
 
+# DEFINES += OLE_DEBUG
 # INCLUDEPATH += C:\\HowToBuildLibiconv_Src\\include
 
 # comment the iconv lib reference for windows
 # LIBS += -LC:\\HowToBuildLibiconv_Src\\Release_Win32 -llibiconv
-
+LIBS += -liconv
 
 SOURCES += main.cpp\
         mainwindow.cpp \
